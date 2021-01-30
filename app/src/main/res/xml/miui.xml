@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen android:title="@string/app_name"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <CheckBoxPreference
+        android:key="fpsSwitch"
+        android:title="全局开关"
+        android:summary="第一次可能无效，请重新开启一次"/>
+    <PreferenceScreen
+        android:key="xfc"
+        android:title="帧数浮窗"
+        android:summary="打开MIUI帧数悬浮窗，用于验证"/>
+    <PreferenceCategory/>
+    <PreferenceScreen
+        android:key="ca"
+        android:title="点击关注开发者酷安"
+        android:summary="酷安 | @乌堆小透明"/>
+</PreferenceScreen>
