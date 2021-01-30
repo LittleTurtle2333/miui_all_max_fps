@@ -1,1 +1,1 @@
-"# miui_all_max_fps" 
+# MIUI全局高刷新率 
