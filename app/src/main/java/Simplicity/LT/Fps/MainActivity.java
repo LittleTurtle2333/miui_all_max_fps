@@ -22,11 +22,11 @@ import miui.preference.PreferenceActivity;
 
 /**
  *
- * */
+ */
 
 public class MainActivity extends PreferenceActivity implements Preference.OnPreferenceChangeListener {
 
-    private CheckBoxPreference fpsSwitch;
+//    private CheckBoxPreference fpsSwitch;
 
 
     @Override
@@ -38,9 +38,9 @@ public class MainActivity extends PreferenceActivity implements Preference.OnPre
         }
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.miui);
-
-        String[] command = new String[]{""};
-        ShellUtils.execCommand(command, true);
+//
+//        String[] command = new String[]{""};
+//        ShellUtils.execCommand(command, true);
 
 
     }
@@ -54,83 +54,36 @@ public class MainActivity extends PreferenceActivity implements Preference.OnPre
     public boolean onPreferenceChange(Preference preference, Object objValue) {
 
 
-
-
-
-            return true;
-        }
-
-
-
-
+        return true;
+    }
 
 
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, android.preference.Preference preference) {
-        this.fpsSwitch = (CheckBoxPreference) findPreference("fpsSwitch");
+//        this.fpsSwitch = (CheckBoxPreference) findPreference("fpsSwitch");
 
-        if (preference == this.fpsSwitch) {
-            if (this.fpsSwitch.isChecked()) {
-                miui.os.SystemProperties.set("persist.lt_maxfps", true);
-            } else {
-                miui.os.SystemProperties.set("persist.lt_maxfps", false);
-            }
-
-
-            AlertDialog.Builder dialog = new AlertDialog.
-                    Builder(MainActivity.this);
-            dialog.setTitle("提示");
-            dialog.setMessage("点击拨号，点击China后返回该APP");
-            dialog.setCancelable(false);
-            dialog.setPositiveButton("我知道了", new DialogInterface.
-                    OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    try {
-                        Intent intent = new Intent(Intent.ACTION_DIAL,Uri.parse("tel:" + Uri.encode("*#*#76937#*#*")));
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                        Toast.makeText(MainActivity.this, "点击拨号，点击China后返回该APP", Toast.LENGTH_LONG).show();
-
-                        AlertDialog.Builder dialog2 = new AlertDialog.
-                                Builder(MainActivity.this);
-                        dialog2.setTitle("提示");
-                        dialog2.setMessage("点击确定重启【电量和性能】后即可生效");
-                        dialog2.setCancelable(false);
-                        dialog2.setPositiveButton("我知道了", new DialogInterface.
-                                OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                                String[] command = new String[]{"am force-stop com.miui.powerkeeper"};
-                                ShellUtils.execCommand(command, true);
-                            }
-                        });
-                        dialog2.show();
-                    } catch (Exception e) {
-                        Toast.makeText(MainActivity.this, "启动失败", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-            dialog.show();
+//        if (preference == this.fpsSwitch) {
+//            if (miui.os.SystemProperties.getBoolean("persist.lt_maxfps",true)) {
+//                miui.os.SystemProperties.set("persist.lt_maxfps", false);
+//            } else {
+//                miui.os.SystemProperties.set("persist.lt_maxfps", true);
+//            }
+//        }
 
 
-
-        }
-
-        if (preference.getKey().equals("ca")){
+        if (preference.getKey().equals("ca")) {
             try {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.coolapk.com/u/883441")));
-                Toast.makeText(this,"乌堆小透明：靓仔，点个关注吧！",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "乌堆小透明：靓仔，点个关注吧！", Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
                 Toast.makeText(this, "失败", Toast.LENGTH_SHORT).show();
-                Toast.makeText(this,"本机未安装酷安应用",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "本机未安装酷安应用", Toast.LENGTH_SHORT).show();
                 Uri uri = Uri.parse("http://www.coolapk.com/u/883441");
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
             }
         }
 
-        if (preference.getKey().equals("xfc")){
+        if (preference.getKey().equals("xfc")) {
 
             AlertDialog.Builder dialog = new AlertDialog.
                     Builder(MainActivity.this);
@@ -142,7 +95,7 @@ public class MainActivity extends PreferenceActivity implements Preference.OnPre
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     try {
-                        Intent intent = new Intent(Intent.ACTION_DIAL,Uri.parse("tel:" + Uri.encode("*#*#37263#*#*")));
+                        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + Uri.encode("*#*#37263#*#*")));
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                     } catch (Exception e) {
@@ -156,9 +109,39 @@ public class MainActivity extends PreferenceActivity implements Preference.OnPre
         }
 
 
+        if (preference.getKey().equals("sybz")) {
+
+            AlertDialog.Builder dialog = new AlertDialog.
+                    Builder(MainActivity.this);
+            dialog.setTitle("使用帮助");
+            dialog.setMessage("使用帮助：\n" +
+                    "下拉状态栏，在控制中心中添加“冻结帧率”，“帧率浮窗”即可使用。\n" +
+                    "\n" +
+                    "冻结帧率指冻结目前的帧率，如：\n" +
+                    "在60Hz上限的软件冻结将会全局60hz\n" +
+                    "在90hz上限的软件冻结将会全局90hz\n" +
+                    "……" +
+                    "\n" +
+                    "\n" +
+                    "实现原理：\n" +
+                    "通过注入控制器Smali代码到PowerKeeper实现实时冻结。"
+            );
+            dialog.setCancelable(false);
+            dialog.setPositiveButton("我知道了", new DialogInterface.
+                    OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+            dialog.show();
+
+
+        }
+
+
         return false;
     }
-
 
 
 }

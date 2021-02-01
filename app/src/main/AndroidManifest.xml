@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="Simplicity.LT.Fps">
 
+    <!-- 开机启动 -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
 
     <application
         android:name="com.miui.Application"
@@ -17,6 +20,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service android:name=".QuickSettingService"
+            android:label="冻结帧率"
+            android:icon="@drawable/fps"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE"/>
+            </intent-filter>
+        </service>
+
+        <service android:name=".QuickSuspendService"
+            android:label="帧数浮窗"
+            android:icon="@drawable/ic_baseline_assessment_24"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
