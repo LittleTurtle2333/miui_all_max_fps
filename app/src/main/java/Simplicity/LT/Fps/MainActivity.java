@@ -26,9 +26,6 @@ import miui.preference.PreferenceActivity;
 
 public class MainActivity extends PreferenceActivity implements Preference.OnPreferenceChangeListener {
 
-//    private CheckBoxPreference fpsSwitch;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (getDarkModeStatus(this)) {
@@ -59,15 +56,6 @@ public class MainActivity extends PreferenceActivity implements Preference.OnPre
 
 
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, android.preference.Preference preference) {
-//        this.fpsSwitch = (CheckBoxPreference) findPreference("fpsSwitch");
-
-//        if (preference == this.fpsSwitch) {
-//            if (miui.os.SystemProperties.getBoolean("persist.lt_maxfps",true)) {
-//                miui.os.SystemProperties.set("persist.lt_maxfps", false);
-//            } else {
-//                miui.os.SystemProperties.set("persist.lt_maxfps", true);
-//            }
-//        }
 
 
         if (preference.getKey().equals("ca")) {
