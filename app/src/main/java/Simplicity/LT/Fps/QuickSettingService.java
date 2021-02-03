@@ -1,6 +1,7 @@
 package Simplicity.LT.Fps;
 
 import android.graphics.drawable.Icon;
+import android.provider.Settings;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
 import android.util.Log;
@@ -28,13 +29,13 @@ public class QuickSettingService extends TileService {
     public void onClick() {
         Log.d(LOG_TAG, "onClick state = " + getQsTile().getState());
         Icon icon;
-        if (miui.os.SystemProperties.getBoolean("persist.lt_maxfps", true)) {
-            miui.os.SystemProperties.set("persist.lt_maxfps", false);
+        if (Settings.System.getInt(this.getContentResolver(), "littleturtle_max_fps", 0)==1) {
+            Settings.System.putInt(this.getContentResolver(), "littleturtle_max_fps", 0);
             toggleState = STATE_OFF;
             getQsTile().setState(Tile.STATE_INACTIVE);// 更改成非活跃状态
 
         } else {
-            miui.os.SystemProperties.set("persist.lt_maxfps", true);
+            Settings.System.putInt(this.getContentResolver(), "littleturtle_max_fps", 1);
             toggleState = STATE_ON;
             getQsTile().setState(Tile.STATE_ACTIVE);//更改成活跃状态
 
@@ -49,7 +50,7 @@ public class QuickSettingService extends TileService {
     @Override
     public void onStartListening() {
         Log.d(LOG_TAG, "onStartListening");
-        if (miui.os.SystemProperties.getBoolean("persist.lt_maxfps", true)) {
+        if (Settings.System.getInt(this.getContentResolver(), "littleturtle_max_fps", 0)==1) {
             toggleState = STATE_ON;
             getQsTile().setState(Tile.STATE_ACTIVE);//更改成活跃状态
         } else {
